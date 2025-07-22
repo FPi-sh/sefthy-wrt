@@ -93,6 +93,11 @@ EOF
 
 rm -rf /tmp/luci* && /etc/init.d/uhttpd restart && /etc/init.d/rpcd restart
 
+# Suppress non-ECT kernel warnings
+rmmod vxlan && \
+echo "vxlan log_ecn_error=0" > /etc/modules.d/*vxlan* && \
+modprobe vxlan
+
 # Start GUI
 /etc/init.d/sefthy-wrt-gui enable
 /etc/init.d/sefthy-wrt-gui start
